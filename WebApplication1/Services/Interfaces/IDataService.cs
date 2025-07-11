@@ -45,5 +45,6 @@ namespace WebApplication1.Services.Interfaces
         // 批量操作
         Task<bool> BulkUpdateDronesAsync(IEnumerable<Drone> drones);
         Task<bool> BulkUpdateTasksAsync(IEnumerable<MainTask> tasks);
+
     }
 }

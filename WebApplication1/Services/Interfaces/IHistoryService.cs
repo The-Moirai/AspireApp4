@@ -4,6 +4,7 @@ namespace WebApplication1.Services.Interfaces
 {
     public interface IHistoryService
     {
+        
         //无人机数据点相关操作
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace WebApplication1.Services.Interfaces
         /// <param name="endTime"></param>
         /// <returns></returns>
         Task<List<DroneDataPoint>> GetAllDronesDataAsync(DateTime startTime, DateTime endTime);
+
         /// <summary>
         /// 获取指定时间范围内所有无人机的数据点，支持分页
         /// </summary>
@@ -88,10 +90,9 @@ namespace WebApplication1.Services.Interfaces
         /// <param name="pageSize"></param>
         /// <returns></returns>
         Task<List<DroneDataPoint>> GetAllDronesDataAsync(DateTime startTime, DateTime endTime, int pageIndex, int pageSize);
-
-
-
-        //任务数据点相关操作
+        Task<DroneDataPoint?> GetLatestDroneDataPointAsync(Guid droneId);
+        Task<List<DroneDataPoint>> GetAllDronesLatestDataPointsAsync();
+        //子任务历史数据相关操作
         /// <summary>
         /// 添加子任务数据点
         /// </summary>
@@ -124,5 +125,21 @@ namespace WebApplication1.Services.Interfaces
         /// <param name="endTime"></param>
         /// <returns></returns>
         Task<int> GetSubTaskDataCountAsync(Guid subTaskId, DateTime startTime, DateTime endTime);
+
+        /// <summary>
+        /// 获取指定子任务在指定时间范围内的历史记录
+        /// </summary>
+        /// <param name="subTaskId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        Task<List<SubTaskDataPoint>> GetSubTaskHistoryAsync(Guid subTaskId, DateTime startTime, DateTime endTime);
+
+        /// <summary>
+        /// 获取指定子任务的所有历史记录
+        /// </summary>
+        /// <param name="subTaskId"></param>
+        /// <returns></returns>
+        Task<List<SubTaskDataPoint>> GetSubTaskHistoryAsync(Guid subTaskId);
     }
 }

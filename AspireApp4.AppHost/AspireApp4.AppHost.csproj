@@ -12,11 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.3.2" />
+    <PackageReference Include="Aspire.Microsoft.Data.SqlClient" Version="9.3.1" />
+    <PackageReference Include="Aspire.StackExchange.Redis" Version="9.3.1" />
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="9.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorApp1\BlazorApp1\BlazorApp1.csproj" />
+    <ProjectReference Include="..\WebApplication1\WebApplication1.csproj" />
   </ItemGroup>
 
 </Project>

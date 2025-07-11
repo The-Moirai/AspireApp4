@@ -1,0 +1,127 @@
+### 数据源中间件测试
+
+### 1. 获取当前数据源状态
+GET {{baseUrl}}/api/datasource/status
+
+### 2. 获取数据源配置
+GET {{baseUrl}}/api/datasource/config
+
+### 3. 获取当前数据源类型
+GET {{baseUrl}}/api/datasource/type
+
+### 4. 检查数据源健康状态
+GET {{baseUrl}}/api/datasource/health
+
+### 5. 切换数据源类型 - 数据库优先
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "DatabaseFirst"
+}
+
+### 6. 切换数据源类型 - 缓存优先
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "CacheFirst"
+}
+
+### 7. 切换数据源类型 - 仅数据库
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "DatabaseOnly"
+}
+
+### 8. 切换数据源类型 - 仅缓存
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "CacheOnly"
+}
+
+### 9. 切换数据源类型 - 混合模式
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "Hybrid"
+}
+
+### 10. 更新数据源配置
+PUT {{baseUrl}}/api/datasource/config
+Content-Type: application/json
+
+{
+  "dataSourceType": "DatabaseFirst",
+  "cacheExpiryMinutes": 10,
+  "enableCache": true,
+  "enableDatabase": true,
+  "warmupStrategy": "OnDemand",
+  "databaseTimeoutSeconds": 60,
+  "enableDetailedLogging": true
+}
+
+### 11. 刷新缓存
+POST {{baseUrl}}/api/datasource/cache/refresh
+
+### 12. 清空缓存
+POST {{baseUrl}}/api/datasource/cache/clear
+
+### 13. 预热缓存
+POST {{baseUrl}}/api/datasource/cache/warmup
+
+### 14. 测试不同数据源下的无人机查询
+# 先切换到数据库优先模式
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "DatabaseFirst"
+}
+
+---
+# 查询无人机列表
+GET {{baseUrl}}/api/drones
+
+---
+# 切换到缓存优先模式
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "CacheFirst"
+}
+
+---
+# 再次查询无人机列表（应该从缓存获取）
+GET {{baseUrl}}/api/drones
+
+---
+# 切换到仅数据库模式
+POST {{baseUrl}}/api/datasource/switch
+Content-Type: application/json
+
+{
+  "dataSourceType": "DatabaseOnly"
+}
+
+---
+# 查询无人机列表（绕过缓存）
+GET {{baseUrl}}/api/drones
+
+### 15. 测试数据源性能
+GET {{baseUrl}}/api/datasourcetest/performance
+
+### 16. 测试缓存预热
+GET {{baseUrl}}/api/datasourcetest/warmup-test
+
+### 17. 测试健康状态
+GET {{baseUrl}}/api/datasourcetest/health-test
+
+### 18. 测试数据源切换
+GET {{baseUrl}}/api/datasourcetest/switch-test 
